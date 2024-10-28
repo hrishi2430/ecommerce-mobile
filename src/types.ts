@@ -8,6 +8,6 @@ export interface Product {
     rate: number;
     count: number;
   }
-  purchaseDate?: Date;
+  purchaseDate?: string;
   quantity?: number
 }

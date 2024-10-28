@@ -3,7 +3,7 @@ import { Product } from '../types';
 
 interface CartProduct extends Product {
   quantity: number;
-  purchaseDate: Date;
+  purchaseDate: string;
 }
 
 interface CartState {
@@ -30,7 +30,7 @@ const cartSlice = createSlice({
         // Add new product with quantity 1
         state.purchasedProducts.push({
           ...action.payload,
-          purchaseDate: new Date(),
+          purchaseDate: new Date().toISOString(),
           quantity: 1,
         });
       }
@@ -51,12 +51,13 @@ const cartSlice = createSlice({
       }
     },
     clearOldPurchases: (state) => {
-      const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
+      const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString();
       state.purchasedProducts = state.purchasedProducts.filter(
         (product) => product.purchaseDate >= twoDaysAgo
       );
     },
   },
 });
+
 export const { purchaseProduct, removeProduct, clearOldPurchases } = cartSlice.actions;
 export default cartSlice.reducer;
